@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create a figure and axis
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# x values
+x = np.linspace(-5, 5, 100)
+
+# Family of parallel lines: y = 2x + c
+c_values = [-4, -2, 0, 2, 4]
+
+for c in c_values:
+    y = 2 * x + c
+    ax.plot(x, y, linewidth=2, label=f'y = 2x + {c}')
+
+# Set axis properties
+ax.set_xlim(-5, 5)
+ax.set_ylim(-10, 10)
+ax.set_aspect('equal')
+
+# Grid and axes
+ax.grid(True, alpha=0.3)
+ax.axhline(y=0, color='k', linewidth=0.5)
+ax.axvline(x=0, color='k', linewidth=0.5)
+
+# Labels and title
+ax.set_title('Family of Parallel Lines: y = 2x + c', fontsize=16)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+

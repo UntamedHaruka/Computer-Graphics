@@ -1,0 +1,134 @@
+import pygame
+import math
+
+pygame.init()
+
+# Window
+WIDTH, HEIGHT = 600, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Circle with Two Stripes")
+
+# Colors
+BLACK = (0, 0, 0)
+WHITE = (245, 245, 245)
+YELLOW = (255, 215, 0)
+RED = (220, 20, 60)
+
+clock = pygame.time.Clock()
+
+# Circle settings
+cx, cy = WIDTH // 2, HEIGHT // 2
+radius = 135
+
+# Stripe settings
+stripe_width = 42
+stripe_length = 330
+
+# Angle of the stripes (rotated ~25° left-to-right)
+angle = math.radians(-25)
+
+running = True
+
+while running:
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Background
+    screen.fill(BLACK)
+
+    # --------------------------------------------------
+    # Draw white circle
+    # --------------------------------------------------
+    pygame.draw.circle(
+        screen,
+        WHITE,
+        (cx, cy),
+        radius
+    )
+
+    # --------------------------------------------------
+    # Stripe drawing helper
+    # --------------------------------------------------
+    def stripe_on_surface(y_offset, color):
+
+        dx = math.cos(angle)
+        dy = math.sin(angle)
+
+        px = -dy
+        py = dx
+
+        sx = cx
+        sy = cy + y_offset
+
+        half_length = stripe_length / 2
+        half_width = stripe_width / 2
+
+        points = [
+            (
+                sx - dx * half_length - px * half_width,
+                sy - dy * half_length - py * half_width
+            ),
+            (
+                sx + dx * half_length - px * half_width,
+                sy + dy * half_length - py * half_width
+            ),
+            (
+                sx + dx * half_length + px * half_width,
+                sy + dy * half_length + py * half_width
+            ),
+            (
+                sx - dx * half_length + px * half_width,
+                sy - dy * half_length + py * half_width
+            )
+        ]
+
+        pygame.draw.polygon(
+            stripe_surface,
+            color,
+            points
+        )
+
+    # --------------------------------------------------
+    # Stripes on separate surface
+    # --------------------------------------------------
+    stripe_surface = pygame.Surface(
+        (WIDTH, HEIGHT),
+        pygame.SRCALPHA
+    )
+
+    # First stripe (yellow, higher)
+    stripe_on_surface(-55, YELLOW)
+
+    # Second stripe (red, lower)
+    stripe_on_surface(55, RED)
+
+    # --------------------------------------------------
+    # Clip stripes to the circle
+    # --------------------------------------------------
+    circle_mask = pygame.Surface(
+        (WIDTH, HEIGHT),
+        pygame.SRCALPHA
+    )
+
+    pygame.draw.circle(
+        circle_mask,
+        (255, 255, 255, 255),
+        (cx, cy),
+        radius
+    )
+
+    stripe_surface.blit(
+        circle_mask,
+        (0, 0),
+        special_flags=pygame.BLEND_RGBA_MULT
+    )
+
+    # Put clipped stripes over circle
+    screen.blit(stripe_surface, (0, 0))
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()

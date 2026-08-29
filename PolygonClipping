@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon, Rectangle
+
+# Original polygon
+polygon = [(1, 2), (4, 9), (9, 7), (8, 2)]
+
+# Clipping window
+xmin, ymin = 2, 2
+xmax, ymax = 8, 8
+
+# Clipped polygon (visible portion)
+clipped = [(2, 4), (4, 8), (8, 8), (8, 2), (2, 2)]
+
+# Draw original polygon
+x, y = zip(*(polygon + [polygon[0]]))
+plt.plot(x, y, "--", label="Original Polygon")
+
+# Draw clipping window
+plt.gca().add_patch(
+    Rectangle((xmin, ymin), xmax-xmin, ymax-ymin,
+              fill=False, linewidth=2)
+)
+
+# Draw clipped polygon with smooth edges
+plt.gca().add_patch(
+    Polygon(clipped, closed=True, alpha=0.6,
+            edgecolor="black", linewidth=2)
+)
+
+plt.xlim(0, 10)
+plt.ylim(0, 10)
+plt.grid()
+plt.title("Polygon Clipping and Antialiasing")
+plt.legend()
+plt.show()

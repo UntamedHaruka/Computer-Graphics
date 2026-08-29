@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+fig, ax = plt.subplots(figsize=(7, 7))
+
+cx, cy = 0, 0
+radius = 1
+num_circles = 6
+distance = radius
+
+colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+lens_color = '#C8A2C8'
+
+centers = []
+for i in range(num_circles):
+    theta = 2 * math.pi * i / num_circles
+    centers.append((cx + distance * math.cos(theta), cy + distance * math.sin(theta)))
+
+for i in range(num_circles):
+    x, y = centers[i]
+    ax.add_patch(plt.Circle((x, y), radius, facecolor=colors[i], edgecolor='black', linewidth=2, zorder=1))
+
+ax.add_patch(plt.Circle((cx, cy), radius, facecolor='white', edgecolor='black', linewidth=2, zorder=2))
+
+x = np.linspace(-2.1, 2.1, 1400)
+y = np.linspace(-2.1, 2.1, 1400)
+X, Y = np.meshgrid(x, y)
+
+inside_middle = (X - cx) ** 2 + (Y - cy) ** 2 <= radius ** 2
+
+# Count how many outer circles cover each point.
+count = np.zeros(X.shape, dtype=int)
+for (ox, oy) in centers:
+    count += ((X - ox) ** 2 + (Y - oy) ** 2 <= radius ** 2).astype(int)
+
+# Only color where exactly 2 outer circles overlap (the true "double convex lens"
+# petal shapes). Leave the triple-overlap center hexagon white too, for contrast.
+lens_only = inside_middle & (count == 2)
+
+ax.contourf(X, Y, lens_only.astype(int), levels=[0.5, 1.5], colors=[lens_color], zorder=3)
+
+all_centers = [(cx, cy)] + centers
+for x, y in all_centers:
+    ax.add_patch(plt.Circle((x, y), radius, fill=False, edgecolor='black', linewidth=2, zorder=4))
+
+ax.set_aspect('equal')
+ax.set_xlim(-2.2, 2.2)
+ax.set_ylim(-2.2, 2.2)
+ax.axis('off')
+plt.savefig('flower_pattern_final.png', dpi=150, bbox_inches='tight')
+plt.show()

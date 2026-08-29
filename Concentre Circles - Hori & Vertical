@@ -1,0 +1,57 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create figure and axis
+fig, ax = plt.subplots(figsize=(10, 10))
+
+# Radius
+r = 2
+
+# Horizontal positions
+h_values = [-10, -5, 0, 5, 10]
+
+# Vertical positions
+k_values = [-10, -5, 0, 5, 10]
+
+# Angle values
+theta = np.linspace(0, 2 * np.pi, 200)
+
+# -------------------------
+# Horizontal family
+# (x-h)^2 + y^2 = r^2
+# -------------------------
+for h in h_values:
+    x = h + r * np.cos(theta)
+    y = r * np.sin(theta)
+
+    ax.plot(x, y, linewidth=2, label=f'Horizontal h={h}')
+
+# -------------------------
+# Vertical family
+# x^2 + (y-k)^2 = r^2
+# -------------------------
+for k in k_values:
+    x = r * np.cos(theta)
+    y = k + r * np.sin(theta)
+
+    ax.plot(x, y, linewidth=2, linestyle='--', label=f'Vertical k={k}')
+
+# Axis properties
+ax.set_xlim(-13, 13)
+ax.set_ylim(-13, 13)
+ax.set_aspect('equal')
+
+# Grid and axes
+ax.grid(True, alpha=0.3)
+ax.axhline(0, color='k', linewidth=0.5)
+ax.axvline(0, color='k', linewidth=0.5)
+
+# Title and labels
+ax.set_title('Horizontal and Vertical Families of Circles', fontsize=16)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+
+ax.legend(fontsize=8)
+
+plt.tight_layout()
+plt.show()

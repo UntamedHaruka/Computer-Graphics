@@ -1,0 +1,32 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create figure and axis
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# x values
+x = np.linspace(-5, 5, 100)
+
+# Slopes for star pattern
+m_values = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5]
+
+# Plot lines: y = mx
+for m in m_values:
+    y = m * x
+    ax.plot(x, y, linewidth=2)
+
+# Axis properties
+ax.set_xlim(-5, 5)
+ax.set_ylim(-5, 5)
+ax.set_aspect('equal')
+
+ax.grid(True, alpha=0.3)
+ax.axhline(0, color='k', linewidth=0.5)
+ax.axvline(0, color='k', linewidth=0.5)
+
+ax.set_title('Star Pattern')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+
+plt.tight_layout()
+plt.show()

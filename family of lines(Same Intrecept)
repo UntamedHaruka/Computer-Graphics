@@ -1,0 +1,31 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create a figure and axis
+fig, ax = plt.subplots(figsize=(8, 8))
+# x values
+x = np.linspace(-5, 5, 100)
+# Different slopes, same y-intercept
+m_values = [-2, -1, 0, 1, 2]
+for m in m_values:
+    y = m * x + 1
+    ax.plot(x, y, linewidth=2, label=f'y = {m}x + 1')
+# Set axis properties
+ax.set_xlim(-5, 5)
+ax.set_ylim(-10, 10)
+ax.set_aspect('equal')
+
+# Grid and axes
+ax.grid(True, alpha=0.3)
+ax.axhline(y=0, color='k', linewidth=0.5)
+ax.axvline(x=0, color='k', linewidth=0.5)
+
+# Title and labels
+ax.set_title('Family of Lines with Same Y-Intercept', fontsize=16)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+

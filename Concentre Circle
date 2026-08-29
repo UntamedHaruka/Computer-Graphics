@@ -1,0 +1,44 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create figure and axis
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# Center of all circles
+n = 2
+k = 3
+
+# Different radii
+r_values = [1, 2, 3, 4, 5]
+
+# Angle values
+theta = np.linspace(0, 2 * np.pi, 200)
+
+# Draw concentric circles
+for r in r_values:
+    x = n + r * np.cos(theta)
+    y = k + r * np.sin(theta)
+
+    ax.plot(x, y, linewidth=2, label=f'r = {r}')
+
+# Set axis properties
+ax.set_xlim(-5, 8)
+ax.set_ylim(-5, 10)
+ax.set_aspect('equal')
+
+# Grid and axes
+ax.grid(True, alpha=0.3)
+ax.axhline(y=0, color='k', linewidth=0.5)
+ax.axvline(x=0, color='k', linewidth=0.5)
+
+# Mark the common center
+ax.plot(n, k, 'ko', label=f'Center ({n},{k})')
+
+# Title and labels
+ax.set_title('Family of Concentric Circles', fontsize=16)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.legend()
+
+plt.tight_layout()
+plt.show()

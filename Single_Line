@@ -1,0 +1,27 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create a figure and axis
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# Plot y = 2x + 1
+x = np.linspace(-5, 5, 100)
+y = 2 * x + 1
+
+ax.plot(x, y, color='blue', linewidth=2, label='y = 2x + 1')
+
+# Set axis properties
+ax.set_xlim(-5, 5)
+ax.set_ylim(-10, 10)
+ax.set_aspect('equal')
+ax.grid(True, alpha=0.3)
+ax.axhline(y=0, color='k', linewidth=0.5)
+ax.axvline(x=0, color='k', linewidth=0.5)
+ax.set_title('y = 2x + 1', fontsize=16)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.legend()
+
+# Display the plot
+plt.tight_layout()
+plt.show()

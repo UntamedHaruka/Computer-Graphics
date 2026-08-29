@@ -1,0 +1,29 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create figure and axis
+fig, ax = plt.subplots(figsize=(9, 9))
+
+# Range of grid lines
+values = np.arange(-5, 6, 1)
+
+# Draw horizontal lines: y = c
+for c in values:
+    ax.axhline(y=c, linewidth=1)
+
+# Draw vertical lines: x = c
+for c in values:
+    ax.axvline(x=c, linewidth=1)
+
+# Set axis properties
+ax.set_xlim(-5, 5)
+ax.set_ylim(-5, 5)
+ax.set_aspect('equal')
+
+# Labels and title
+ax.set_title('Grid Pattern', fontsize=16)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+
+plt.tight_layout()
+plt.show()

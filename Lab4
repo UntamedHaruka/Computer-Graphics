@@ -1,0 +1,49 @@
+import pygame
+
+pygame.init()
+
+screen = pygame.display.set_mode((700, 500))
+pygame.display.set_caption("2D Translation and Scaling")
+
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+RED = (255, 0, 0)
+
+# Original rectangle
+x, y = 100, 150
+width, height = 100, 80
+
+# Translation values
+tx, ty = 250, 100
+
+# Scaling values
+sx, sy = 1.5, 1.5
+
+running = True
+
+while running:
+    screen.fill(WHITE)
+
+    # Original rectangle
+    pygame.draw.rect(screen, BLUE, (x, y, width, height), 2)
+
+    # Translated and scaled rectangle
+    new_x = x + tx
+    new_y = y + ty
+    new_width = width * sx
+    new_height = height * sy
+
+    pygame.draw.rect(
+        screen,
+        RED,
+        (new_x, new_y, new_width, new_height),
+        2
+    )
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    pygame.display.update()
+
+pygame.quit()

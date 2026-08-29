@@ -1,0 +1,46 @@
+import tkinter as tk
+
+root = tk.Tk()
+root.title("Basic Geometric Primitives")
+root.geometry("800x600")
+
+canvas = tk.Canvas(root, width=800, height=600, bg="white")
+canvas.pack(fill="both", expand=True)
+
+# ----------------- ROW 1 -----------------
+# 1. Line
+canvas.create_line(50, 150, 230, 150, fill="red", width=5)
+
+# 2. Circle (equal width & height)
+canvas.create_oval(320, 80, 460, 220, outline="blue", fill="lightblue", width=3)
+
+# 3. Rectangle
+canvas.create_rectangle(550, 80, 730, 200, fill="green", outline="black", width=2)
+
+# ----------------- ROW 2 -----------------
+# 4. Ellipse (wider than tall)
+canvas.create_oval(60, 380, 220, 480, fill="orange", outline="black", width=2)
+
+# 5. Polygon (Regular Pentagon)
+canvas.create_polygon(
+    390, 330,  # Top vertex
+    460, 380,  # Right top
+    435, 470,  # Right bottom
+    345, 470,  # Left bottom
+    320, 380,  # Left top
+    fill="purple",
+    outline="black",
+    width=2,
+)
+
+# 6. Triangle (Upright isosceles)
+canvas.create_polygon(
+    640, 330,  # Top vertex
+    730, 470,  # Bottom right
+    550, 470,  # Bottom left
+    fill="yellow",
+    outline="black",
+    width=2,
+)
+
+root.mainloop()
